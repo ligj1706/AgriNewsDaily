@@ -4,16 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>农业新闻每日推送</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .news-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .news-item h2 {
+            margin-top: 0;
+        }
+        .news-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .news-item p {
+            color: #666;
+        }
+        .pub-date {
+            font-size: 0.8em;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
     <h1>农业新闻每日推送</h1>
     {% for news in news_list %}
-    <div>
+    <div class="news-item">
         <h2><a href="{{ news.link }}" target="_blank">{{ news.title }}</a></h2>
         <p>{{ news.summary }}</p>
-        <p>发布时间: {{ news.pub_date.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p class="pub-date">发布时间: {{ news.pub_date.strftime('%Y-%m-%d %H:%M') }}</p>
     </div>
-    <hr>
     {% endfor %}
 </body>
 </html>
