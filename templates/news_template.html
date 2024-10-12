@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>农业新闻每日推送</title>
+</head>
+<body>
+    <h1>农业新闻每日推送</h1>
+    {% for news in news_list %}
+    <div>
+        <h2><a href="{{ news.link }}" target="_blank">{{ news.title }}</a></h2>
+        <p>{{ news.summary }}</p>
+        <p>发布时间: {{ news.pub_date.strftime('%Y-%m-%d %H:%M') }}</p>
+    </div>
+    <hr>
+    {% endfor %}
+</body>
+</html>
