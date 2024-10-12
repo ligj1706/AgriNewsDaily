@@ -5,21 +5,21 @@ from datetime import datetime, timedelta
 from jinja2 import Environment, FileSystemLoader
 
 def parse_farmer_daily():
-    url = 'https://www.farmer.com.cn/farmer/xw/sntt/list.shtml'
+    url = 'https://www.farmer.com.cn/farmer/xw/sntt/index.shtml'
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     news_list = []
 
     news_elements = soup.select('div.list_con_c > ul > li')
     for news in news_elements:
-        title_element = news.select_one('div.list_con_c_tit > a')
+        title_element = news.select_one('div > div.list_con_c_tit > a')
         title = title_element.text.strip()
         link = 'https://www.farmer.com.cn' + title_element['href']
 
-        summary_element = news.select_one('div.list_con_c_zy')
+        summary_element = news.select_one('div > div.list_con_c_zy')
         summary = summary_element.text.strip()
 
-        pub_date_element = news.select_one('div.list_con_c_ly > span:first-child')
+        pub_date_element = news.select_one('div > div.list_con_c_ly > div:first-child')
         pub_date = datetime.strptime(pub_date_element.text.strip(), '%Y-%m-%d %H:%M:%S')
 
         news_list.append({
@@ -32,7 +32,7 @@ def parse_farmer_daily():
     return news_list
 
 def parse_fao_news():
-    url = 'https://www.fao.org/newsroom/zh/news/rss.xml'
+    url = 'https://www.fao.org/feeds/fao-newsroom-rss-zh'
     feed = feedparser.parse(url)
     news_list = []
 
